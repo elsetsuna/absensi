@@ -24,8 +24,25 @@
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
     <!-- custom Css-->
     <link href="assets/css/custom.min.css" rel="stylesheet" type="text/css" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    .clock {
+  font-size: 48px;
+  font-family: 'Orbitron', sans-serif;
+  color: #00ff00; /* Neon green effect */
+  text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
 
-
+@keyframes glow {
+  from { text-shadow: 0 0 10px #00ff00; }
+  to { text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00; }
+}
+</style>
 </head>
 
 <body>

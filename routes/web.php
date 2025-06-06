@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\AbsensiController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,6 +35,12 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
 
+    });
+
+    Route::controller(AbsensiController::class)->group(function () {
+        Route::post('/api/start-timer', 'startTimer')->name('start.timer');
+        Route::post('/api/stop-timer', 'stopTimer')->name('stop.timer');
+        Route::get('/api/active-timer', 'getActiveTimer')->name('active.timer');
     });
 
 });

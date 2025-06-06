@@ -326,12 +326,9 @@
                                             <h4 class="card-title mb-0 me-2 align-items-center" >Waktu Istirahat</h4>
                                         </div>
                                         <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    asd
-                                                </div>
-                                            </div>
+                                            <div class="clock time text-center mb-4">
                                                 <p id="time">0:00</p>
+                                            </div>
                                             <div class="row">
                                                 <div class="col-6 col-md-6">
                                                     <!-- Buttons Grid -->
@@ -2413,7 +2410,7 @@
     <!--end col-->
 </div>
 <!--end row-->
-<script>
+<!-- <script>
             let timer;
         let startTime = localStorage.getItem('startTime') ? parseInt(localStorage.getItem('startTime')) : null;
         let secondsElapsed = 0;
@@ -2452,23 +2449,58 @@
             startTimer();
         }
 
-</script>
+</script> -->
 <script>
+        let timer;
+    
+    function updateTimerDisplay() {
+        let startTime = localStorage.getItem("startTime");
+        if (startTime) {
+            let elapsed = Math.floor((Date.now() - parseInt(startTime)) / 1000);
+            let minutes = Math.floor(elapsed / 60);
+            let seconds = elapsed % 60;
+            document.getElementById('time').innerText = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        }
+    }
+
     function startTimer() {
-        fetch('/api/start-timer', { method: 'POST' })
+        fetch('/api/start-timer', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
         .then(response => response.json())
         .then(data => {
             localStorage.setItem("startTime", Date.now());
             setInterval(updateTimerDisplay, 1000);
         });
+
+            timer = setInterval(updateTimerDisplay, 1000);
+            const startbutton = document.getElementById('startbtn');
+            startbutton.disabled = true;
+            const stopbutton = document.getElementById('stopbtn');
+            stopbutton.disabled = false;
     }
 
     function stopTimer() {
-        fetch('/api/stop-timer', { method: 'POST' })
+        fetch('/api/stop-timer', { 
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+        })
         .then(response => response.json())
         .then(() => {
             localStorage.removeItem("startTime");
         });
+
+            const stopbutton = document.getElementById('stopbtn');
+            stopbutton.disabled = true;
+            const startbutton = document.getElementById('startbtn');
+            startbutton.disabled = false;
     }
 
     function fetchActiveTimer() {
