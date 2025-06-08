@@ -15,7 +15,7 @@ class Absensi extends Model
      */
     protected $table = 'absensi';
 
-protected $fillable = ['nama', 'jabatan', 'tipe_absensi', 'tanggal', 'status', 'keterangan', 'waktu_mulai', 'waktu_selesai'];
+protected $fillable = ['user_id', 'nama', 'jabatan', 'tipe_absensi', 'tanggal', 'status', 'keterangan', 'waktu_mulai', 'waktu_selesai', 'keterangan_selesai'];
 
     /**
      * The attributes that should be hidden for serialization.

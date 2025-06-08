@@ -4,11 +4,11 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\AbsensiController;
+use Illuminate\Support\Carbon;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('signin');
 });
 Route::get('/signup', function () {
     return view('signup');
@@ -21,17 +21,10 @@ Route::get('/login', function () {
 Route::controller(LoginController::class)->group(function () {
     Route::post('/signup', 'signup')->name('signup');
     Route::post('/login', 'authenticate')->name('login');
-    Route::post('/logout', 'logout')->name('logout');
+    Route::get('/logout', 'logout')->name('logout');
 
 });
 Route::middleware(['auth'])->group(function () {
-
-    Route::controller(ProjectController::class)->group(function () {
-        Route::get('/project', 'getAllProjects')->name('projectbyid');
-        Route::get('/add_project', 'index')->name('add_project');
-        Route::post('/simpan', 'store')->name('project.store');
-
-    });
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
 
@@ -41,6 +34,14 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/api/start-timer', 'startTimer')->name('start.timer');
         Route::post('/api/stop-timer', 'stopTimer')->name('stop.timer');
         Route::get('/api/active-timer', 'getActiveTimer')->name('active.timer');
+        Route::get('/api/history-istirahat', 'historyIstirahat')->name('history.istirahat');
     });
+
+
+Route::get('/server-time', function () {
+    return response()->json([
+        'server_time' => Carbon::now()->format('Y-m-d H:i:s')
+    ]);
+});
 
 });
