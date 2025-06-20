@@ -44,19 +44,38 @@ class LoginController extends Controller
     
     public function signup(Request $request): RedirectResponse
     {
-        // dd($request->all());
-        // $request->validate([
-        //     'name' => ['required', 'string', 'max:255'],
-        //     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-        //     'password' => ['required', 'confirmed', 'min:8'],
-        // ]);
-        // dd($request->all());
+        $request->validate([
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'nama' => ['required', 'string', 'max:255'],
+            'jenis_kelamin' => ['required', 'string'],
+            'agama' => ['required', 'string'],
+            'bo' => ['required', 'string'],
+            'jabatan' => ['required', 'string'],
+            // Add other validation rules as needed
+        ]);
+        // Check if the user already exists
+        if (User::where('username', $request->username)->exists()) {
+            return redirect()->back()->withErrors(['username' => 'Username already exists.']);
+        }
+        if (User::where('email', $request->email)->exists()) {
+            return redirect()->back()->withErrors(['email' => 'Email already exists.']);
+        }
+        
         $user = new User();
         $user->username = $request->username;
-        $user->nama = $request->nama;
-        $user->jabatan = $request->jabatan;
-        $user->email = $request->email;
         $user->password = bcrypt($request->password);
+        $user->email = $request->email;
+        $user->nama = $request->nama;
+        $user->jenis_kelamin = $request->jenis_kelamin;
+        $user->agama = $request->agama;
+        $user->bo = $request->bo;
+        $user->jabatan = $request->jabatan;
+        $user->tanggal_masuk_kerja = $request->tanggal_masuk_kerja;
+        $user->status = 'Aktif'; // Default status
+        $user->created_at = now();
+        $user->updated_at = now();
         $user->save();
         // dd($user);
 

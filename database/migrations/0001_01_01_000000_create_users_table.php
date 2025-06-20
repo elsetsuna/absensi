@@ -13,26 +13,32 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id()->autoIncrement()->primary();
-            $table->string('nama')->index();
             $table->string('username')->unique();
-            $table->string('jabatan');
-            $table->string('email')->unique();
             $table->string('password');
+            $table->string('email')->unique();
+            $table->string('nama')->index();
+            $table->string('jenis_kelamin');
+            $table->string('agama');
+            $table->string('bo');
+            $table->string('jabatan');
+            $table->date('tanggal_masuk_kerja')->nullable();
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
+            $table->string('status')->default('Aktif');
             $table->rememberToken();
-            $table->timestamps();
         });
 
         Schema::create('absensi', function (Blueprint $table) {
             $table->id()->autoIncrement()->primary();
             $table->string('nama')->index();
-            $table->string('jabatan')->index();
             $table->string('tipe_absensi')->index();
             $table->date('tanggal')->index();
             $table->time('waktu_mulai');
             $table->time('waktu_selesai');
-            $table->string('status')->default('Hadir');
+            $table->string('status')->nullable();
             $table->string('keterangan')->nullable();
             $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

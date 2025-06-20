@@ -10,7 +10,6 @@
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="assets/images/favicon.ico">
-
     <!-- Layout config Js -->
     <script src="assets/js/layout.js"></script>
     <!-- Bootstrap Css -->
@@ -22,11 +21,21 @@
     <!-- custom Css-->
     <link href="assets/css/custom.min.css" rel="stylesheet" type="text/css" />
 
-
+      <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+    <script>
+    $( function() {
+        $( "#datepicker" ).datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "yy-mm-dd",
+        });
+    } );
+  </script>
 </head>
 
 <body>
-
     <div class="auth-page-wrapper pt-5">
         <!-- auth page bg -->
         <div class="auth-one-bg-position auth-one-bg" id="auth-particles">
@@ -50,7 +59,6 @@
                                     <img src="assets/images/logo-light.png" alt="" height="20">
                                 </a>
                             </div>
-                            <p class="mt-3 fs-15 fw-medium">Premium Admin & Dashboard Template</p>
                         </div>
                     </div>
                 </div>
@@ -62,24 +70,23 @@
 
                             <div class="card-body p-4">
                                 <div class="text-center mt-2">
-                                    <h5 class="text-primary">Create New Account</h5>
-                                    <p class="text-muted">Get your free velzon account now</p>
+                                    <h5 class="text-primary">Silahkan Daftar Terlebih Dahulu</h5>
                                 </div>
                                 <div class="p-2 mt-4">
                                     <form class="needs-validation" novalidate action="{{ route('signup') }}" method="POST">
                                         @csrf
                                         <div class="mb-3">
-                                            <label for="nama" class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukan Nama Lengkap" required>
-                                            <div class="invalid-feedback">
-                                                Please enter username
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
                                             <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
                                             <div class="invalid-feedback">
-                                                Please enter username
+                                                Tolong masukan username anda
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="nama" class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukan Nama Lengkap" required>
+                                            <div class="invalid-feedback">
+                                                Tolong masukan nama lengkap anda
                                             </div>
                                         </div>
                                         <div class="mb-3">
@@ -88,7 +95,7 @@
                                                 <input type="password" class="form-control pe-5 password-input" name="password" onpaste="return false" placeholder="Enter password" id="password-input" aria-describedby="passwordInput" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
                                                 <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
                                                 <div class="invalid-feedback">
-                                                    Please enter password
+                                                    Password harus mengandung setidaknya 8 karakter, satu huruf besar, satu huruf kecil, dan satu angka.
                                                 </div>
                                             </div>
                                         </div>
@@ -96,20 +103,93 @@
                                             <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
                                             <input type="email" class="form-control" id="email" name="email" placeholder="Enter email address" required>
                                             <div class="invalid-feedback">
-                                                Please enter email
+                                                Tolong masukan email anda
                                             </div>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="jabatan" class="form-label">Email <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="jabatan" name="jabatan" placeholder="Enter jabatan" required>
+                                            <label for="jenis_kelamin" class="form-label">Jenis Kelamin <span class="text-danger">*</span></label>
+                                            <select class="form-select mb-3" id="jenis_kelamin" name="jenis_kelamin" aria-label="Default select example" required>
+                                                <option selected>Pilih Jenis Kelamin</option>
+                                                <option value="laki-laki">Laki-Laki</option>
+                                                <option value="perempuan">Perempuan</option>
+                                            </select>
                                             <div class="invalid-feedback">
-                                                Please enter jabatan
+                                                Tolong masukan jenis kelamin anda
                                             </div>
                                         </div>
-                                        <div class="mb-4">
-                                            <p class="mb-0 fs-12 text-muted fst-italic">By registering you agree to the Velzon <a href="#" class="text-primary text-decoration-underline fst-normal fw-medium">Terms of Use</a></p>
+                                        <div class="mb-3">
+                                            <label for="Agama" class="form-label">Agama <span class="text-danger">*</span></label>
+                                             <select class="form-select mb-3" id="agama" name="agama" aria-label="Default select example" required>
+                                                <option selected>Pilih Agama</option>
+                                                <option value="islam">Islam</option>
+                                                <option value="budha">Budha</option>
+                                                <option value="protesa">Protestan</option>    
+                                                <option value="katolik">Katolik</option>
+                                                <option value="hindu">Hindu</option>
+                                                <option value="konghucu">Konghucu</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Silahkan pilih agama yg akan didaftarkan.
+                                            </div>
                                         </div>
-
+                                        <div class="mb-3">
+                                            <label for="bo" class="form-label">Bo / Web<span class="text-danger">*</span></label>
+                                          <select class="form-select mb-3" id="bo" name="bo" aria-label="Default select example" required>
+                                                <option selected>Pilih BO</BOdy></option>
+                                                <option value="lx">LxToto</option>
+                                                <option value="dewidewi">DewidewiToto</option>
+                                                <option value="maxis">MaxisToto</option>    
+                                                <option value="waze">WazeToto</option>
+                                                <option value="18">18Toto</option>
+                                                <option value="s8">S8toto</option>
+                                                <option value="sq">SqToto</option>
+                                                <option value="sin">SinToto</option>
+                                                <option value="maps">MapsToto</option>
+                                                <option value="com">ComToto</option>
+                                                <option value="hok">HokToto</option>
+                                                <option value="ong">OngToto</option>    
+                                                <option value="asus">AsusToto</option>
+                                                <option value="net">NetToto</option>
+                                                <option value="peta">PetaToto</option>
+                                                <option value="isi">IsiToto</option>
+                                                <option value="waze">WazeToto</option>
+                                                <option value="mcd">McdToto</option>    
+                                                <option value="pubg">PubgToto</option>
+                                                <option value="toped">Totopedia</option>
+                                                <option value="victory">VictoryToto</option>
+                                                <option value="cuan">Cuantoto</option>
+                                                <option value="acc">AccToto</option>
+                                                <option value="ks">KsToto</option>
+                                                <option value="hb">HbToto</option>
+                                                <option value="megashio">MegaShio</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Silahkan pilih Bo yg akan didaftarkan.
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="jabatan" class="form-label">Jabatan <span class="text-danger">*</span></label>
+                                                <select class="form-select mb-3" id="jabatan" name="jabatan" aria-label="Default select example" required>
+                                                    <option selected>Pilih Jabatan</option>
+                                                    <option value="operator">Operator</option>
+                                                    <option value="marketing">Marketing</option>
+                                                    <option value="kapten">Kapten</option>
+                                                    <option value="wakil kapten">Wakil Kapten</option>    
+                                                    <option value="wakil kepala kapten">Wakil Kepala kapten</w>
+                                                    <option value="kepala kapten">Kepala Kapten</option>
+                                                    <option value="wakil kepala">Wakil Kepala</option>
+                                                </select>
+                                            <div class="invalid-feedback">
+                                                Silahkan pilih jabatan yg akan didaftarkan.
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="tanggal_masuk_kerja" class="form-label">Tanggal Bergabung <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control"  id="datepicker" name="tanggal_masuk_kerja" placeholder="Pilih Tanggal Bergabung" required>
+                                        <div class="invalid-feedback">
+                                                Tolong masukan tanggal bergabung anda
+                                            </div>
+                                        </div>
                                         <div id="password-contain" class="p-3 bg-light mb-2 rounded">
                                             <h5 class="fs-13">Password must contain:</h5>
                                             <p id="pass-length" class="invalid fs-12 mb-2">Minimum <b>8 characters</b></p>
@@ -120,19 +200,6 @@
 
                                         <div class="mt-4">
                                             <button class="btn btn-success w-100" type="submit">Sign Up</button>
-                                        </div>
-
-                                        <div class="mt-4 text-center">
-                                            <div class="signin-other-title">
-                                                <h5 class="fs-13 mb-4 title text-muted">Create account with</h5>
-                                            </div>
-
-                                            <div>
-                                                <button type="button" class="btn btn-primary btn-icon waves-effect waves-light"><i class="ri-facebook-fill fs-16"></i></button>
-                                                <button type="button" class="btn btn-danger btn-icon waves-effect waves-light"><i class="ri-google-fill fs-16"></i></button>
-                                                <button type="button" class="btn btn-dark btn-icon waves-effect waves-light"><i class="ri-github-fill fs-16"></i></button>
-                                                <button type="button" class="btn btn-info btn-icon waves-effect waves-light"><i class="ri-twitter-fill fs-16"></i></button>
-                                            </div>
                                         </div>
                                     </form>
 
@@ -179,7 +246,6 @@
     <script src="assets/libs/feather-icons/feather.min.js"></script>
     <script src="assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
     <script src="assets/js/plugins.js"></script>
-
     <!-- particles js -->
     <script src="assets/libs/particles.js/particles.js"></script>
     <!-- particles app js -->
