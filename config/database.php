@@ -111,6 +111,14 @@ return [
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
+            'mongodb' => [
+        'driver' => 'mongodb',
+        'dsn' => env('DB_URI', 'mongodb://localhost:27017'),
+        'database' => env('DB_DATABASE', 'attendance_hub'),
+        'options' => [
+            'appName' => env('APP_NAME', 'AttendanceHub'),
+        ],
+    ],
 
     ],
 
